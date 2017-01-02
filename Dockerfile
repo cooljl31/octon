@@ -8,6 +8,8 @@ COPY package.json /usr/src/app/package.json
 RUN npm install --quiet
 # Add code
 COPY . /usr/src/app
+# Set BASE_URL
+ENV BASE_URL "https://octon.xyz"
 # Build code
 RUN npm run build
 # Set env
