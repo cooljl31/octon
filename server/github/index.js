@@ -5,7 +5,7 @@ import { UserRepository, Repository } from '../models';
 
 export default {
   /**
-   * @description get an new apollo-client instance
+   * @description synchronize all user github stars
    */
   async synchronizeUserStars(user) {
     try {
