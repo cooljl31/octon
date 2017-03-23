@@ -4,9 +4,7 @@ import UserResolvers from './api/users/resolvers';
 
 const resolvers = merge(
   {
-    Query: merge(
-      UserQueries,
-    ),
+    Query: merge(UserQueries),
   },
   UserResolvers,
 );

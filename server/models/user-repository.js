@@ -7,10 +7,7 @@ class UserRepository extends BaseModel {
 
   static get jsonSchema() {
     return {
-      required: [
-        'userId',
-        'repositoryId',
-      ],
+      required: ['userId', 'repositoryId'],
       properties: {
         id: { type: 'integer' },
         userId: { type: 'string' },

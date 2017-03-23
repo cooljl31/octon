@@ -16,9 +16,6 @@ const SchemaDefinition = `
 `;
 
 export default makeExecutableSchema({
-  typeDefs: [
-    SchemaDefinition, Query,
-    User,
-  ],
+  typeDefs: [SchemaDefinition, Query, User],
   resolvers,
 });

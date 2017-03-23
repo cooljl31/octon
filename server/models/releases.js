@@ -7,13 +7,7 @@ class Release extends Model {
 
   static get jsonSchema() {
     return {
-      required: [
-        'refId',
-        'name',
-        'htmlUrl',
-        'type',
-        'publishedAt',
-      ],
+      required: ['refId', 'name', 'htmlUrl', 'type', 'publishedAt'],
       properties: {
         id: { type: 'integer' },
         refId: { type: 'string', minLength: 1, maxLength: 255 },

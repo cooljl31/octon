@@ -4,7 +4,8 @@
   "scripts": {
     "start": "yarn run start:server",
     "start:server": "babel-watch server/index.js",
-    "lint": "eslint server client",
+    "format": "prettier-eslint --write \"server/**/*.js\"",
+    "lint": "eslint server",
     "db:setup": "knex migrate:latest",
     "test": "npm run lint"
   },

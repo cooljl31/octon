@@ -37,12 +37,14 @@ nunjucks.configure('ressources/templates', {
 });
 
 const KnexSessionStore = connectSessionKnex(session);
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  store: new KnexSessionStore({ knex, createtable: true }),
-  resave: false,
-  saveUninitialized: false,
-}));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    store: new KnexSessionStore({ knex, createtable: true }),
+    resave: false,
+    saveUninitialized: false,
+  }),
+);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
@@ -50,18 +52,25 @@ app.use(express.static('public'));
 passport(app);
 
 // Graphql endpoint
-app.use('/graphql', bodyParser.json(), graphqlExpress(req => ({
-  schema: graphqlSchema,
-  context: {
-    userId: req.user ? req.user.id : null,
-  },
-})));
+app.use(
+  '/graphql',
+  bodyParser.json(),
+  graphqlExpress(req => ({
+    schema: graphqlSchema,
+    context: {
+      userId: req.user ? req.user.id : null,
+    },
+  })),
+);
 
 // Enable graphiql in development
 if (process.env.NODE_ENV !== 'production') {
-  app.use('/graphiql', graphiqlConnect({
-    endpointURL: '/graphql',
-  }));
+  app.use(
+    '/graphiql',
+    graphiqlConnect({
+      endpointURL: '/graphql',
+    }),
+  );
 }
 
 app.get('*', (req, res) => {

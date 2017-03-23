@@ -7,13 +7,7 @@ class Repository extends BaseModel {
 
   static get jsonSchema() {
     return {
-      required: [
-        'refId',
-        'name',
-        'avatar',
-        'htmlUrl',
-        'type',
-      ],
+      required: ['refId', 'name', 'avatar', 'htmlUrl', 'type'],
       properties: {
         id: { type: 'integer' },
         refId: { type: 'string', minLength: 1, maxLength: 255 },

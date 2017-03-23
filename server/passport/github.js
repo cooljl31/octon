@@ -40,10 +40,13 @@ export async function handleGithubReturn(accessToken, refreshToken, profile, cb)
 }
 
 export default function () {
-  return new GitHubStrategy.Strategy({
-    clientID: process.env.GITHUB_CLIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: `${process.env.BASE_URL}${process.env.GITHUB_REDIRECT_URL}`,
-    scope: ['user:email', 'repo'],
-  }, handleGithubReturn);
+  return new GitHubStrategy.Strategy(
+    {
+      clientID: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      callbackURL: `${process.env.BASE_URL}${process.env.GITHUB_REDIRECT_URL}`,
+      scope: ['user:email', 'repo'],
+    },
+    handleGithubReturn,
+  );
 }
