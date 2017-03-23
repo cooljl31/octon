@@ -4,3 +4,4 @@ node_modules
 coverage
 server-build
 public/build
+knexfile.js

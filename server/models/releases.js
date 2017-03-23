@@ -1,8 +1,8 @@
-import BaseModel from './base';
+import { Model } from 'objection';
 
-class Repository extends BaseModel {
+class Release extends Model {
   static get tableName() {
-    return 'repositories';
+    return 'releases';
   }
 
   static get jsonSchema() {
@@ -10,36 +10,34 @@ class Repository extends BaseModel {
       required: [
         'refId',
         'name',
-        'avatar',
         'htmlUrl',
         'type',
+        'publishedAt',
       ],
       properties: {
         id: { type: 'integer' },
         refId: { type: 'string', minLength: 1, maxLength: 255 },
         name: { type: 'string', minLength: 1, maxLength: 255 },
-        avatar: { type: 'string', minLength: 1, maxLength: 255 },
         htmlUrl: { type: 'string', minLength: 1, maxLength: 255 },
         // TODO enum
         type: { type: 'string', minLength: 1, maxLength: 255 },
-        createdAt: { type: 'string' },
-        updatedAt: { type: 'string' },
+        publishedAt: { type: 'dateTime' },
       },
     };
   }
 
   static get relationMappings() {
     return {
-      releases: {
-        relation: BaseModel.HasManyRelation,
-        modelClass: `${__dirname}/releases`,
+      repository: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: `${__dirname}/repositories`,
         join: {
-          from: 'repositories.id',
-          to: 'releases.repositoryId',
+          from: 'releases.repositoryId',
+          to: 'repositories.id',
         },
       },
     };
   }
 }
 
-export default Repository;
+export default Release;

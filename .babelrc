@@ -1,11 +1,6 @@
 {
   "presets": [
     "es2015",
-    "stage-1",
-    "react"
-  ],
-  "plugins": [
-    "transform-async-to-generator",
-    "transform-dev-warning"
+    "stage-3"
   ]
 }
