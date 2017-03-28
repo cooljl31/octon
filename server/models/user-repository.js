@@ -1,4 +1,6 @@
 import BaseModel from './base';
+import User from './users';
+import Repository from './repositories';
 
 class UserRepository extends BaseModel {
   static get tableName() {
@@ -22,7 +24,7 @@ class UserRepository extends BaseModel {
     return {
       user: {
         relation: BaseModel.BelongsToOneRelation,
-        modelClass: `${__dirname}/users`,
+        modelClass: User,
         join: {
           from: 'user_repository.userId',
           to: 'users.id',
@@ -30,7 +32,7 @@ class UserRepository extends BaseModel {
       },
       repository: {
         relation: BaseModel.BelongsToOneRelation,
-        modelClass: `${__dirname}/repositories`,
+        modelClass: Repository,
         join: {
           from: 'user_repository.repositoryId',
           to: 'repositories.id',

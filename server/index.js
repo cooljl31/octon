@@ -1,5 +1,6 @@
 import 'babel-polyfill';
 import dotenv from 'dotenv';
+import next from 'next';
 import Knex from 'knex';
 import { Model } from 'objection';
 import express from 'express';
@@ -20,68 +21,72 @@ checkEnv();
 process.env.GITHUB_REDIRECT_URL = process.env.GITHUB_REDIRECT_URL || '/auth/github/callback';
 process.env.PORT = process.env.PORT || 3000;
 
-// Connect to database
-const knex = Knex({
-  client: 'pg',
-  connection: process.env.DATABASE_URL,
-});
+const app = next({ dev: process.env.NODE_ENV !== 'production' });
+const handle = app.getRequestHandler();
 
-// TODO host + pass in env
-// TODO Model url validator
-Model.knex(knex);
+app.prepare().then(() => {
+  // Connect to database
+  const knex = Knex({
+    client: 'pg',
+    connection: process.env.DATABASE_URL,
+  });
 
-const app = express();
-nunjucks.configure('ressources/templates', {
-  autoescape: true,
-  express: app,
-});
+  // TODO Model url validator
+  Model.knex(knex);
 
-const KnexSessionStore = connectSessionKnex(session);
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    store: new KnexSessionStore({ knex, createtable: true }),
-    resave: false,
-    saveUninitialized: false,
-  }),
-);
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(express.static('public'));
+  const server = express();
+  nunjucks.configure('ressources/templates', {
+    autoescape: true,
+    express: server,
+  });
 
-passport(app);
-
-// Graphql endpoint
-app.use(
-  '/graphql',
-  bodyParser.json(),
-  graphqlExpress(req => ({
-    schema: graphqlSchema,
-    context: {
-      userId: req.user ? req.user.id : null,
-    },
-  })),
-);
-
-// Enable graphiql in development
-if (process.env.NODE_ENV !== 'production') {
-  app.use(
-    '/graphiql',
-    graphiqlConnect({
-      endpointURL: '/graphql',
+  const KnexSessionStore = connectSessionKnex(session);
+  server.use(
+    session({
+      secret: process.env.SESSION_SECRET,
+      store: new KnexSessionStore({ knex, createtable: true }),
+      resave: false,
+      saveUninitialized: false,
     }),
   );
-}
+  server.use(bodyParser.urlencoded({ extended: true }));
+  server.use(bodyParser.json());
+  server.use(express.static('public'));
 
-app.get('*', (req, res) => {
-  req.session.redirectTo = req.url;
-  if (!req.isAuthenticated()) {
-    res.render('index.html');
-  } else {
-    res.render('app.html');
+  passport(server);
+
+  // Graphql endpoint
+  server.use(
+    '/graphql',
+    bodyParser.json(),
+    graphqlExpress(req => ({
+      schema: graphqlSchema,
+      context: {
+        userId: req.user ? req.user.id : null,
+      },
+    })),
+  );
+
+  // Enable graphiql in development
+  if (process.env.NODE_ENV !== 'production') {
+    server.use(
+      '/graphiql',
+      graphiqlConnect({
+        endpointURL: '/graphql',
+      }),
+    );
   }
-});
 
-app.listen(process.env.PORT, () => {
-  logger.info(`app started on port ${process.env.PORT}`);
+  server.get('*', (req, res) => {
+    req.session.redirectTo = req.url;
+    if (!req.isAuthenticated()) {
+      res.render('index.html');
+    } else {
+      handle(req, res);
+    }
+  });
+
+  server.listen(process.env.PORT, () => {
+    logger.info(`app started on port ${process.env.PORT}`);
+  });
 });

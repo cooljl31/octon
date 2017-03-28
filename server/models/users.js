@@ -1,4 +1,5 @@
 import BaseModel from './base';
+import Repository from './repositories';
 
 class User extends BaseModel {
   static get tableName() {
@@ -35,7 +36,7 @@ class User extends BaseModel {
     return {
       repositories: {
         relation: BaseModel.ManyToManyRelation,
-        modelClass: `${__dirname}/repositories`,
+        modelClass: Repository,
         join: {
           from: 'users.id',
           through: {
