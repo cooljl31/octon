@@ -1,6 +1,7 @@
-import { Model } from 'objection';
+import BaseModel from './base';
+import Repository from './repositories';
 
-class Release extends Model {
+class Release extends BaseModel {
   static get tableName() {
     return 'releases';
   }
@@ -23,8 +24,8 @@ class Release extends Model {
   static get relationMappings() {
     return {
       repository: {
-        relation: Model.BelongsToOneRelation,
-        modelClass: `${__dirname}/repositories`,
+        relation: BaseModel.BelongsToOneRelation,
+        modelClass: Repository,
         join: {
           from: 'releases.repositoryId',
           to: 'repositories.id',
