@@ -63,7 +63,7 @@
     "newrelic": "^1.36.0",
     "node-schedule": "^1.2.0",
     "node-social-api": "0.0.10",
-    "nodemailer": "^2.7.0",
+    "nodemailer": "^6.4.16",
     "nunjucks": "^3.0.0",
     "optics-agent": "^1.0.3",
     "passport": "^0.3.2",
