@@ -59,7 +59,7 @@
     "material-ui-build": "git://github.com/callemall/material-ui.git#a514d53ae6625edc56811fa68b40dd590c956f85",
     "mjml": "^3.1.1",
     "moment": "^2.17.1",
-    "mongoose": "^4.7.5",
+    "mongoose": "^5.11.7",
     "newrelic": "^1.36.0",
     "node-schedule": "^1.2.0",
     "node-social-api": "0.0.10",
