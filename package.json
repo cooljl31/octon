@@ -35,7 +35,7 @@
   "homepage": "https://github.com/pradel/octon#readme",
   "dependencies": {
     "apollo-client": "^0.5.7",
-    "apollo-server": "^0.3.3",
+    "apollo-server": "^2.25.3",
     "babel-polyfill": "^6.20.0",
     "body-parser": "^1.15.2",
     "classnames": "^2.2.5",
@@ -57,7 +57,7 @@
     "http-proxy": "^1.16.2",
     "marked": "^0.3.6",
     "material-ui-build": "git://github.com/callemall/material-ui.git#a514d53ae6625edc56811fa68b40dd590c956f85",
-    "mjml": "^3.1.1",
+    "mjml": "^4.0.0",
     "moment": "^2.17.1",
     "mongoose": "^4.7.5",
     "newrelic": "^1.36.0",
