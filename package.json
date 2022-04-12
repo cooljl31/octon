@@ -59,7 +59,7 @@
     "material-ui-build": "git://github.com/callemall/material-ui.git#a514d53ae6625edc56811fa68b40dd590c956f85",
     "mjml": "^3.1.1",
     "moment": "^2.17.1",
-    "mongoose": "^4.7.5",
+    "mongoose": "^5.7.3",
     "newrelic": "^1.36.0",
     "node-schedule": "^1.2.0",
     "node-social-api": "0.0.10",
@@ -81,7 +81,7 @@
     "semver": "^5.3.0",
     "timeago-react": "^1.0.7",
     "validator": "^6.2.0",
-    "winston": "^2.3.0"
+    "winston": "^3.3.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.6.0",
